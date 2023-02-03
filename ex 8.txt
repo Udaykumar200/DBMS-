@@ -1,0 +1,54 @@
+mysql> use uday;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_uday |
++----------------+
+| faculty        |
+| mentees        |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> select*from mentees;
++-----------+------+------+-----------+------------+-------+---------+
+| Regno     | Name | Dept | Address   | Fathername | Marks | subject |
++-----------+------+------+-----------+------------+-------+---------+
+| 192110350 | uday | EEE  | Erode     | karthik    |    99 | PDSD    |
+| 192110351 | yogi | CES  | hyderabad | ramu       |    98 | DBMS    |
++-----------+------+------+-----------+------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select Regno,Name from mentees where Name IN(select Name from mentees where Dept="CES");
++-----------+------+
+| Regno     | Name |
++-----------+------+
+| 192110351 | yogi |
++-----------+------+
+1 row in set (0.00 sec)
+
+mysql> create table mentees1(Id int(10),Name varchar(20));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into mentees1(Id,name)
+    -> select Regno,name
+    -> from mentees where Dept="EEE";
+Query OK, 1 row affected (0.01 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> select*from mentees1;
++-----------+------+
+| Id        | Name |
++-----------+------+
+| 192110350 | uday |
++-----------+------+
+1 row in set (0.00 sec)
+
+mysql> select Regno,(select Name from mentees1 where Id=192110351)as Name,Dept,Address,Fathername,Marks,subject from mentees where Regno=192110351;
++-----------+------+------+-----------+------------+-------+---------+
+| Regno     | Name | Dept | Address   | Fathername | Marks | subject |
++-----------+------+------+-----------+------------+-------+---------+
+| 192110351 | NULL | CES  | hyderabad | ramu       |    98 | DBMS    |
++-----------+------+------+-----------+------------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,58 @@
+mysql> use uday;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_uday |
++----------------+
+| faculty        |
+| mentees        |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table mentees add subject varchar(20);
+Query OK, 1 row affected (0.01 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> update mentees set subject="PDSD" where Dept="EEE";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from mentees;
++-----------+------+------+---------+------------+-------+---------+
+| Regno     | Name | Dept | Address | Fathername | Marks | subject |
++-----------+------+------+---------+------------+-------+---------+
+| 192110350 | uday | EEE  | Erode   | karthik    |    99 | PDSD    |
++-----------+------+------+---------+------------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql>  select*from mentees where Marks BETWEEN 95 and 99;
++-----------+------+------+---------+------------+-------+---------+
+| Regno     | Name | Dept | Address | Fathername | Marks | subject |
++-----------+------+------+---------+------------+-------+---------+
+| 192110350 | uday | EEE  | Erode   | karthik    |    99 | PDSD    |
++-----------+------+------+---------+------------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select sum(Marks) from mentees where Dept="EEE";
++------------+
+| sum(Marks) |
++------------+
+|         99 |
++------------+
+1 row in set (0.00 sec)
+
+mysql>  select avg(Marks) as Average from mentees;
++---------+
+| Average |
++---------+
+| 99.0000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select min(Marks) as minimum from mentees;
++---------+
+| minimum |
++---------+
+|      99 |
++---------+
+1 row in set (0.00 sec)
